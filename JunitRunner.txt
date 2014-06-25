@@ -1,0 +1,56 @@
+Matish,
+
+Please find below classes for running junits in different classes.
+
+//Test Runner
+import junit.framework.Test;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;  
+
+public class TestRunner {
+        public static Test suite()  
+        {  
+                TestSuite suite = new TestSuite();  
+                suite.addTest(TestSuite.createTest(TestJunit1.class, "test1"));
+                suite.addTest(TestSuite.createTest(TestJunit2.class, "test2"));
+                suite.addTestSuite( TestJunit1.class);
+                suite.addTestSuite( TestJunit2.class);  
+                return (Test) suite;  
+        }  
+
+        
+        public static void main(String arg[])
+        {
+                junit.textui.TestRunner.run(suite());
+
+        }
+}
+//JUnit Test1
+import junit.framework.TestCase;
+import org.junit.Test;
+
+public class TestJunit1 extends TestCase {
+
+   String message = "Robert";   
+   MessageUtil messageUtil = new MessageUtil(message);
+   
+   @Test
+   public void test1() {        
+      System.out.println("Inside testPrintMessage()");    
+      assertEquals(message, messageUtil.printMessage());     
+   }
+}
+//JUnit Test2
+import org.junit.Test;
+
+public class TestJunit2 extends TestJunit1 {
+   String message = "Robert";   
+   MessageUtil messageUtil = new MessageUtil(message);
+ 
+   @Test
+   public void test2() {
+      System.out.println("Inside testSalutationMessage()");
+      message = "Hi!" + "Robert";
+      assertEquals(message,messageUtil.salutationMessage());
+   }
+}
